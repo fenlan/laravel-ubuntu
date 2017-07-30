@@ -23,7 +23,7 @@ Route::get('basic1', function () {
 // test　路由参数
 Route::get('user/{id}', function ($id) {
     return 'User-id-' . $id;
-});
+})->where('id', '[0-9]+');
 
 // test
 Route::get('user/{name?}', function ($name = 'fenlan') {
@@ -39,3 +39,6 @@ Route::group(['prefix' => 'member'], function () {
         return 'member-multy1';
     });
 });
+
+// test 控制器关联
+Route::get('member/info', 'MemberController@info');
