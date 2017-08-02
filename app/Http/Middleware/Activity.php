@@ -12,10 +12,10 @@ use Closure;
 
 class Activity
 {
-
+    
     public function handle($request, Closure $next) {
 
-        if (time() < strtotime('2017-08-02')) {
+        if (time() < strtotime('2017-08-03')) {
 
             return redirect('activity0');
         }
