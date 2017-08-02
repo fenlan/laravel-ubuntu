@@ -15,4 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('student/index', 'StudentController@index');
+Route::group(['middleware' => ['web']], function () {
+
+    Route::get('student/index', 'StudentController@index');
+    Route::any('student/create', 'StudentController@create');
+    Route::any('student/save', 'StudentController@save');
+});
