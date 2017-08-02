@@ -14,4 +14,16 @@ class Student extends Model
     protected $table = 'student';
     protected $primaryKey = 'ID';
     public $timestamps = false;
+
+    protected function getDateFormat()
+    {
+
+        return time();
+    }
+
+    protected function asDateTime($value)
+    {
+
+        return $value;
+    }
 }

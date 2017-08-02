@@ -15,12 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// test
-Route::get('student', 'StudentController@test');
-
-Route::group(['middleware' => ['activity']], function () {
-    Route::any('activity1', 'StudentController@activity1');
-    Route::any('activity2', 'StudentController@activity2');
-});
-
-Route::any('activity0', 'StudentController@activity0');
+Route::get('student/index', 'StudentController@index');
