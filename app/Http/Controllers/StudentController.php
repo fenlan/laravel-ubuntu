@@ -101,23 +101,72 @@ class StudentController extends Controller
 
         if ($request->isMethod('POST')) {
 
+            // 1.控制器验证
+            $this->validate($request, [
+                'Student.name' => 'required|min:2|max:20',
+                'Student.age' => 'required|integer',
+                'Student.sex' => 'required|integer',
+            ], [
+                'required' => ':attribute 为必填项',
+                'min' => ':attribute 长度不符合要求',
+                'max' => ':attribute 长度不符合要求',
+                'integer' => ':attribute 必须为整数',
+            ], [
+                'Student.name' => '姓名',
+                'Student.age' => '年龄',
+                'Student.sex' => '性别'
+            ]);
+
             $data = $request->input('Student');
             $student->name = $data['name'];
             $student->age = $data['age'];
             $student->sex = $data['sex'];
 
-            echo $student->save();
-
-//            if ($student->save()) {
-//                return redirect('student/index')->with('success', '修改成功-' . $id);
-//            } else {
-//                return redirect()->back()->with('failed', '修改失败-' . $id);
-//            }
+            if ($student->save()) {
+                return redirect('student/index')->with('success', '修改成功-' . $id);
+            } else {
+                return redirect()->back()->with('failed', '修改失败-' . $id);
+            }
         }
 
 
         return view('student.update', [
             'student' => $student,
         ]);
+    }
+
+    public function detail($id) {
+
+        $student = Student::find($id);
+
+        return view('student.detail', [
+            'student' => $student,
+        ]);
+    }
+
+    public function delete($id) {
+
+        $student = Student::find($id);
+
+        if ($student->delete()) {
+
+            return redirect('student/index')->with('success', '删除成功-' . $id);
+        } else {
+
+            return redirect('student/index')->with('failed', '删除失败-' . $id);
+        }
+    }
+
+    public function test() {
+
+        $student = Student::find('1001');
+        echo $student->name;
+        echo $student->sex;
+
+        $student->sex = '20';
+        $student->save();
+
+        $student = Student::find('1001');
+        echo $student->sex;
     }
 }

@@ -17,8 +17,8 @@ class Student extends Model
     const SEX_GRIL = 20;    // 女
 
     protected $table = 'student';
-    protected $primaryKey = 'ID';
-    public $timestamps = false;
+    protected $primaryKey = 'id';
+    public $timestamps = true;
     protected $fillable = ['name', 'age', 'sex'];
 
     protected function getDateFormat()
