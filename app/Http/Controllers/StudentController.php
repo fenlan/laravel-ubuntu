@@ -23,6 +23,8 @@ class StudentController extends Controller
     // 添加学生页面
     public function create(Request $request) {
 
+        $student = new Student();
+
         if ($request->isMethod('POST')) {
 
             // 2.validator验证
@@ -54,7 +56,9 @@ class StudentController extends Controller
             }
         }
 
-        return view('student.create');
+        return view('student.create', [
+            'student' => $student,
+        ]);
     }
 
     // 保存添加
@@ -88,5 +92,32 @@ class StudentController extends Controller
         } else {
             return redirect()->back()->with('failed', '添加失败!');
         }
+    }
+
+    // 修改学生信息
+    public function update(Request $request, $id) {
+
+        $student = Student::find($id);
+
+        if ($request->isMethod('POST')) {
+
+            $data = $request->input('Student');
+            $student->name = $data['name'];
+            $student->age = $data['age'];
+            $student->sex = $data['sex'];
+
+            echo $student->save();
+
+//            if ($student->save()) {
+//                return redirect('student/index')->with('success', '修改成功-' . $id);
+//            } else {
+//                return redirect()->back()->with('failed', '修改失败-' . $id);
+//            }
+        }
+
+
+        return view('student.update', [
+            'student' => $student,
+        ]);
     }
 }
