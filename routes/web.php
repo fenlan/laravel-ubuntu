@@ -23,3 +23,6 @@ Route::any('student/detail/{id}', 'StudentController@detail');
 Route::any('student/delete/{id}', 'StudentController@delete');
 
 Route::any('test', 'StudentController@test');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
